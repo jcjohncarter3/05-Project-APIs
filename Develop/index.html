@@ -27,7 +27,7 @@
     <!-- Todo: Create a modal with a form to add tasks -->
     <div class="modal fade" id="formModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog">
-        <div class="modal-content">
+        <form action="#" class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel">Add a Task</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -49,9 +49,9 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Enter</button>
+            <button type="submit" class="btn btn-primary" id="add-task-btn" data-bs-dismiss="modal">Enter</button>
           </div>
-        </div>
+        </form>
       </div>
     </div>
     <div class="row swim-lanes text-center justify-content-between">
