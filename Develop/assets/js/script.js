@@ -34,7 +34,7 @@ function createTaskCard(task) {
         //Example: 
         const taskCard = $('<div>')
               .addClass('card project-card draggable my-3')
-              .attr('data-project-id', task.id);
+              .attr('id', task.id);
         const cardHeader = $('<div>').addClass('card-header h4').text(task.title);
         const cardBody = $('<div>').addClass('card-body');
         const cardDescription = $('<p>').addClass('card-text').text(task.description);
@@ -42,8 +42,8 @@ function createTaskCard(task) {
         const cardDeleteBtn = $('<button>')
             .addClass('btn btn-danger delete')
             .text('Delete')
-            .attr('data-project-id', task.id);
-        // cardDeleteBtn.on('click', handleDeleteProject);
+            .attr('id', task.id);
+        cardDeleteBtn.on('click', handleDeleteTask);
 
     // TODO: set card background color based on due date
         // Example: 
@@ -167,11 +167,20 @@ function handleAddTask(event){
 // Todo: create a function to handle deleting a task
 // WHAT IS THIS FUNCTION DOING? This function should handle deleting a task when the delete button is clicked
 function handleDeleteTask(event){
+    console.log('inside handleDeleteTask()');
     // TODO: method to prevent default behavior of browser event
 
     // TODO: get the task id from the button clicked 
         // Example: 
-        // const projectId = $(this).attr('data-project-id');
+        const projectId = $(this).attr('id'); //1, 2, 100
+        console.log('projectId: ' + projectId); // 'projectId: 1' in the console log
+       
+        const projectIdHash ='#' + projectId;
+        console.log('projectIdHash: ' + projectIdHash); // '# 1'
+        // console.log(`projectID with hashtag: `)
+        $(projectIdHash).remove(); // removing id="1" or "#1"
+
+
 
     // TODO: remove the task from the taskList using the filter (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter) method
         // Example: 
@@ -222,4 +231,7 @@ $(document).ready(function () {
     // TODO: make lanes droppable 
 
     // TODO: make due date field a date picker
+
+    
+
 });
