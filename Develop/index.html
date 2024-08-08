@@ -21,41 +21,45 @@
     <h1 class="display-3">Task Board</h1>
     <p class="lead">A simple Kanban board for task management</p>
   </header>
+
   <div class="container">
     <div class="text-center mb-5">
       <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#formModal">Add Task</button>
     </div>
+
     <!-- Todo: Create a modal with a form to add tasks -->
     <div class="modal fade" id="formModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog">
-        <form action="#" class="modal-content">
+        <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel">Add a Task</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
             <!-- this is where we're going to put the form fields-->
-             <form id="taskForm">
-            <div class="mb-3">
-              <label for="tasks-title" class="form-label">Task Title</label>
-              <input type="text" class="form-control" id="tasks-title" placeholder="Enter Tasks Title">
-            </div>
-            <div class="mb-3">
-              <label for="tasks-due-date" class="form-label">Task Due Date</label>
-              <input type="date" class="form-control" id="tasks-due-date" placeholder="Tasks Due Date">
-            </div>
-            <div class="mb-3">
-              <label for="description" class="form-label">Description</label>
-              <textarea class="form-control" id="description" rows="3"></textarea>
-            </div>
+            <form id="taskForm">
+              <div class="mb-3">
+                <label for="tasks-title" class="form-label">Task Title</label>
+                <input type="text" class="form-control" id="tasks-title" placeholder="Enter Task Title">
+              </div>
+              <div class="mb-3">
+                <label for="tasks-due-date" class="form-label">Task Due Date</label>
+                <input class="form-control" id="tasks-due-date" placeholder="Task Due Date">
+              </div>
+              <div class="mb-3">
+                <label for="description" class="form-label">Description</label>
+                <textarea class="form-control" id="description" rows="3"></textarea>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary" id="add-task-btn" data-bs-dismiss="modal">Enter</button>
+              </div>
+            </form>
           </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary" id="add-task-btn" data-bs-dismiss="modal">Enter</button>
-          </div>
-        </form>
+        </div>
       </div>
     </div>
+    <!-- </div> -->
     <div class="row swim-lanes text-center justify-content-between">
       <div class="col-12 col-lg-4 d-flex">
         <div id="to-do" class="card border-light mb-3 lane flex-grow-1">

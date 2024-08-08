@@ -6,10 +6,6 @@ let nextId = JSON.parse(localStorage.getItem("nextId"));
 // WHAT IS THIS FUNCTION DOING? This function should increment the nextId variable and update it in local storage. 
 function generateTaskId() {
     console.log('inside generateTaskId() function')
-    // console.log('nextId: ', nextId)
-    // TODO: write an if/else statement where IF nextId does not exist in 
-    // localStorage (hint: it's null), set nextId to 1.  ELSE, increment it 
-    //by 1 (Docs for Increment: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Increment)
     if (nextId === null) {
         nextId = 1;
     } else {
@@ -17,8 +13,7 @@ function generateTaskId() {
     }
     console.log('nextId: ', nextId)
 
-    // TODO: save nextId to localStorage
-    // Example: localStorage.setItem("variableName", JSON.stringify(variableName)); 
+    // TODO: save nextId to localStorage 
     localStorage.setItem("nextId", JSON.stringify(nextId)); 
 
 
@@ -31,10 +26,9 @@ function generateTaskId() {
 function createTaskCard(task) {
     console.log('inside createTaskCard() with data passed: ', task)
     // TODO: create card elements (HINT: Module 5, Mini Project SOLVED, script.js, lines 37-67)
-        //Example: 
         const taskCard = $('<div>')
-              .addClass('card project-card draggable my-3')
-              .attr('id', task.id);
+              .addClass('card task-card draggable my-3')
+              .attr('data-id', task.id);
         const cardHeader = $('<div>').addClass('card-header h4').text(task.title);
         const cardBody = $('<div>').addClass('card-body');
         const cardDescription = $('<p>').addClass('card-text').text(task.description);
@@ -42,11 +36,10 @@ function createTaskCard(task) {
         const cardDeleteBtn = $('<button>')
             .addClass('btn btn-danger delete')
             .text('Delete')
-            .attr('id', task.id);
+            .attr('data-id', task.id);
         cardDeleteBtn.on('click', handleDeleteTask);
 
-    // TODO: set card background color based on due date
-        // Example: 
+    // TODO: set card background color based on due date 
          if (task.dueDate && task.status !== 'done') {
          const now = dayjs();
          const taskDueDate = dayjs(task.dueDate, 'DD/MM/YYYY');
@@ -58,8 +51,7 @@ function createTaskCard(task) {
          }
            }
 
-    // TODO: append card elements
-        // Example: 
+    // TODO: append card elements 
         cardBody.append(cardDueDate, cardDescription, cardDeleteBtn);
         taskCard.append(cardHeader, cardBody);
 
@@ -67,7 +59,7 @@ function createTaskCard(task) {
     // const todoCardsColumn = $('#todo-cards');
     // todoCardsColumn.append(taskCard);
 
-    return taskCard 
+    return taskCard; 
 
 }
 
@@ -125,11 +117,11 @@ function renderTaskList() {
 function handleAddTask(event){
     console.log('got here inside the handleAddTask() function')
         // TODO: method to prevent default behavior of browser event
-            // Example: 
+ 
         event.preventDefault(); 
         
         // TODO: create a new task object
-            // Example: 
+ 
         const taskTitle = $('#tasks-title').val();
         console.log('tasksTitle: ', taskTitle);
 
@@ -143,7 +135,7 @@ function handleAddTask(event){
         console.log('taskId: ', taskId);
 
         const task = {
-            id: generateTaskId(),
+            id: taskId,
             title: taskTitle,
             description: taskDescription,
             dueDate: taskDueDate,
@@ -153,17 +145,17 @@ function handleAddTask(event){
 
         // createTaskCard(task);
         // TODO: add the new task to the task list
-            // Example: 
-            taskList.push(task)
+ 
+        taskList.push(task)
         // const projects = [];
         
         // TODO: save to local storage 
-        localStorage.setItem('task', JSON.stringify(taskList));
+        localStorage.setItem('tasks', JSON.stringify(taskList));
         // TODO: call renderTaskList() 
         renderTaskList()
         // TODO: clear the form inputs 
-            // Example: 
-            $('#task-title').val('');
+ 
+            $('#tasks-title').val('');
             $('#description').val('');
             $('#tasks-due-date').val('');
 }
@@ -174,10 +166,9 @@ function handleDeleteTask(event){
     console.log('inside handleDeleteTask()');
     // TODO: method to prevent default behavior of browser event
 
-    // TODO: get the task id from the button clicked 
-        // Example: 
-        const taskId = $(this).attr('id'); //1, 2, 100
-        console.log('projectId: ' + projectId); // 'projectId: 1' in the console log
+    // TODO: get the task id from the button clicked  
+        const taskId = $(this).attr('data-id'); //1, 2, 100
+        // console.log('projectId: ' + projectId); // 'projectId: 1' in the console log
        
         // const projectIdHash ='#' + projectId;
         // console.log('projectIdHash: ' + projectIdHash); // '# 1'
@@ -186,12 +177,10 @@ function handleDeleteTask(event){
 
 
 
-    // TODO: remove the task from the taskList using the filter (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter) method
-        // Example: 
+    // TODO: remove the task from the taskList using the filter (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter) method 
         taskList = taskList.filter((task) => task.id !== parseInt(taskId));  
 
-    // TODO: save to local storage 
-        // Example: 
+    // TODO: save to local storage  
          localStorage.setItem('tasks', JSON.stringify(taskList));
     
     // TODO: call renderTaskLIst() 
@@ -201,21 +190,18 @@ function handleDeleteTask(event){
 // Todo: create a function to handle dropping a task into a new status lane
 // WHAT IS THIS FUNCTION DOING? This function should handle changing the status of a task when it is dropped into a new lane.
 function handleDrop(event, ui) {
-    // TODO: get the task id and new status from the event
-        // Example: 
-        const taskId = ui.draggable[0].dataset.taskId;
+    // TODO: get the task id and new status from the event 
+        const taskId = ui.draggable.data('id')
         const newStatus = event.target.id;
 
-    //TODO: write a for...of loop to update the task status of the dragged card 
-        // Example: 
+    //TODO: write a for...of loop to update the task status of the dragged card  
         for (let task of taskList) {
         if (task.id === taskId) {
             task.status = newStatus;
           }
         }
 
-    // TODO: save to local storage 
-        // Example: 
+    // TODO: save to local storage  
          localStorage.setItem('tasks', JSON.stringify(taskList));
  
     // TODO: call renderTaskList()
@@ -225,7 +211,6 @@ function handleDrop(event, ui) {
 // Todo: when the page loads, render the task list, add event listeners, make lanes droppable, and make the due date field a date picker
 $(document).ready(function () {
     console.log('document should be ready');
-    // HINT: Module 5, Mini Project SOLVED, script.js, lines 201-215
     // TODO: render the task list 
     renderTaskList()
     // TODO: add event listener 
